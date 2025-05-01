@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Car Racing</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="hud">
+            <div class="stats">
+                <div class="hearts">
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="coins">
+                    <i class="fas fa-coins"></i>
+                    <span id="coinCount">0</span>
+                </div>
+                <div class="score">Score: <span id="scoreCount">0</span></div>
+            </div>
+            <button id="garageBtn" class="menu-button">Garage</button>
+            <button id="muteBtn" class="menu-button"><i class="fas fa-volume-up"></i></button>
+        </div>
+
+        <div id="gameArea">
+            <div id="player"></div>
+        </div>
+
+        <div id="garage" class="modal">
+            <div class="modal-content">
+                <h2>Car Garage</h2>
+                <div class="car-grid" id="carGrid"></div>
+                <button class="close-button">Close</button>
+            </div>
+        </div>
+
+        <div id="gameOver" class="modal">
+            <div class="modal-content">
+                <h2>Game Over</h2>
+                <p>Score: <span id="finalScore">0</span></p>
+                <p>Coins earned: <span id="coinsEarned">0</span></p>
+                <button id="restartBtn">Play Again</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 
