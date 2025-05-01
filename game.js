@@ -61,6 +61,7 @@ const muteBtn = document.getElementById('muteBtn');
 const scoreCount = document.getElementById('scoreCount');
 const coinCount = document.getElementById('coinCount');
 const carGrid = document.getElementById('carGrid');
+const startGameBtn = document.getElementById('startGameBtn');
 
 // Initialize game
 function initGame() {
@@ -76,6 +77,7 @@ function setupEventListeners() {
     document.addEventListener('keyup', handleKeyUp);
     garageBtn.addEventListener('click', toggleGarage);
     muteBtn.addEventListener('click', toggleSound);
+    startGameBtn.addEventListener('click', startGame);
     document.querySelector('.close-button').addEventListener('click', toggleGarage);
     
     // Add pause functionality
@@ -288,14 +290,30 @@ function collectPowerUp(powerUp) {
 
 // Game state management
 function startGame() {
+    if (gameState.isPlaying) return;
+    
     gameState.isPlaying = true;
-    gameState.gameSpeed = config.initialGameSpeed;
     gameState.score = 0;
     gameState.hearts = 3;
+    gameState.gameSpeed = config.initialGameSpeed;
     gameState.distanceTraveled = 0;
-    hideStartScreen();
-    playBackgroundMusic();
+    
+    // Hide start button
+    startGameBtn.style.display = 'none';
+    
+    // Clear any existing game elements
+    document.querySelectorAll('.obstacle, .coin, .power-up').forEach(el => el.remove());
+    
+    // Reset player position
+    player.style.left = '50%';
+    
+    // Start game loop
     gameLoop();
+    
+    // Play background music
+    if (!gameState.isMuted) {
+        playBackgroundMusic();
+    }
 }
 
 function togglePause() {
@@ -316,7 +334,8 @@ function endGame() {
 
 // UI Management
 function showStartScreen() {
-    document.getElementById('startScreen').style.display = 'flex';
+    startGameBtn.style.display = 'block';
+    gameState.isPlaying = false;
 }
 
 function hideStartScreen() {

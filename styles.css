@@ -197,4 +197,48 @@ body {
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
+}
+
+.start-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    font-size: 28px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: pulse 2s infinite;
+}
+
+.start-button:hover {
+    background: linear-gradient(45deg, #FF8E53, #FF6B6B);
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+}
+
+.start-button:active {
+    transform: translate(-50%, -50%) scale(0.95);
+    box-shadow: 0 3px 10px rgba(255, 107, 107, 0.4);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    }
+    50% {
+        box-shadow: 0 5px 25px rgba(255, 107, 107, 0.6);
+    }
+    100% {
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    }
 } 
