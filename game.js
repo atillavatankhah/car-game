@@ -69,6 +69,12 @@ function initGame() {
     createCarGrid();
     updateHUD();
     showStartScreen();
+    
+    // Add restart button event listener
+    document.getElementById('restartBtn').addEventListener('click', () => {
+        document.getElementById('gameOver').style.display = 'none';
+        startGame();
+    });
 }
 
 // Event Listeners
@@ -76,6 +82,7 @@ function setupEventListeners() {
     document.addEventListener('keydown', handleKeyPress);
     document.addEventListener('keyup', handleKeyUp);
     garageBtn.addEventListener('click', toggleGarage);
+    document.getElementById('garageBtnGameOver').addEventListener('click', toggleGarage);
     muteBtn.addEventListener('click', toggleSound);
     startGameBtn.addEventListener('click', startGame);
     document.querySelector('.close-button').addEventListener('click', toggleGarage);
@@ -149,10 +156,11 @@ function updatePlayerPosition() {
     const moveSpeed = 5 * gameState.currentCar.handling;
     let currentLeft = parseFloat(player.style.left) || gameAreaRect.width / 2;
 
-    if (keyState.ArrowLeft && playerRect.left > gameAreaRect.left + 10) {
+    // Prevent car from going too far left or right
+    if (keyState.ArrowLeft && playerRect.left > gameAreaRect.left + 20) {
         currentLeft -= moveSpeed;
     }
-    if (keyState.ArrowRight && playerRect.right < gameAreaRect.right - 10) {
+    if (keyState.ArrowRight && playerRect.right < gameAreaRect.right - 20) {
         currentLeft += moveSpeed;
     }
 
@@ -327,9 +335,19 @@ function togglePause() {
 
 function endGame() {
     gameState.isPlaying = false;
-    document.getElementById('gameOver').style.display = 'flex';
+    
+    // Show game over modal with final score
+    const gameOverModal = document.getElementById('gameOver');
     document.getElementById('finalScore').textContent = Math.floor(gameState.score);
     document.getElementById('coinsEarned').textContent = gameState.coins;
+    gameOverModal.style.display = 'flex';
+    
+    // Show start button again
+    startGameBtn.style.display = 'block';
+    
+    // Stop background music
+    sounds.background.pause();
+    sounds.background.currentTime = 0;
 }
 
 // UI Management
